@@ -3,11 +3,12 @@ import { ProductService } from '../../services/product.service';
 import { ProductDettail } from '../../models/product-list.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { SkeletonComponent } from '../skeleton/skeleton';
 
 @Component({
   selector: 'app-product-list',
   standalone: true,
-  imports: [CommonModule, RouterModule],
+  imports: [CommonModule, RouterModule, SkeletonComponent],
   templateUrl: './product-list.html',
   styleUrl: './product-list.css'
 })
@@ -17,6 +18,7 @@ export class ProductListComponent {
   products = signal<ProductDettail[]>([]);
   searchTerm = signal(''); //signal para búsqueda
   pageSize = signal(5);
+  isLoading = signal(true); // ✅ Nuevo signal para loading
 
   // productos filtrados
   filteredProducts = computed(() => {
@@ -36,9 +38,19 @@ export class ProductListComponent {
 
   constructor() {
     effect(() => {
+      this.isLoading.set(true); // ✅ Mostrar skeleton
       this.productService.getProducts().subscribe({
-        next: (data) => this.products.set(data),
-        error: () => this.products.set([]),
+        next: (data) => {
+          // Simular delay mínimo para mostrar skeleton
+          setTimeout(() => {
+            this.products.set(data);
+            this.isLoading.set(false); // ✅ Ocultar skeleton
+          }, 500);
+        },
+        error: () => {
+          this.products.set([]);
+          this.isLoading.set(false); // ✅ Ocultar skeleton
+        },
       });
     });
   }
@@ -87,5 +99,10 @@ export class ProductListComponent {
   //cerrar menú contextual al hacer click fuera
   ngOnInit() {
     document.addEventListener('click', () => this.openMenuId = null);
+  }
+
+  // ✅ TrackBy function para optimizar *ngFor
+  trackByProductId(index: number, product: ProductDettail): string {
+    return product.id;
   }
 }

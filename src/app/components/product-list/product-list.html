@@ -1,4 +1,8 @@
-<div class="product-list-container">
+<!-- Skeleton mientras carga -->
+<app-skeleton *ngIf="isLoading()"></app-skeleton>
+
+<!-- Contenido principal cuando termina de cargar -->
+<div class="product-list-container" *ngIf="!isLoading()">
   <div class="txtBuscar">
     <input
       type="text"
@@ -49,8 +53,15 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of filteredProducts()">
-          <td data-label="Logo"><img [src]="product.logo" alt="Logo" class="avatar" /></td>
+        <tr *ngFor="let product of filteredProducts(); trackBy: trackByProductId">
+          <td data-label="Logo">
+            <img 
+              [src]="product.logo" 
+              alt="Logo" 
+              class="avatar"
+              loading="lazy"
+              [style.background-color]="'#' + product.id.slice(-6)" />
+          </td>
           <td data-label="Nombre">{{ product.name }}</td>
           <td data-label="Descripción">{{ product.description }}</td>
           <td data-label="Fecha de liberación">{{ product.date_release }}</td>
