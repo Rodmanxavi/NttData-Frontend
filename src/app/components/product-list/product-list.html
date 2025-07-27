@@ -57,11 +57,11 @@
           <td>{{ product.description }}</td>
           <td>{{ product.date_release }}</td>
           <td>{{ product.date_revision }}</td>
-          <td>
+          <td class="actions-cell">
             <span class="menu-icon" (click)="openMenu(product.id, $event)">⋮</span>
             <div class="dropdown-menu" *ngIf="openMenuId === product.id">
+              <button [routerLink]="['/editar-producto', product.id]">Editar</button>
               <button (click)="openDeleteModal(product)">Eliminar</button>
-              <button disabled>Editar</button>
             </div>
           </td>
         </tr>

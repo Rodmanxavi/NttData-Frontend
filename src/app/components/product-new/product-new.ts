@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule, AbstractControl, ValidationErrors, ValidatorFn, AsyncValidatorFn } from '@angular/forms';
-import { ProductService } from '../../services/product-list.service';
+import { ProductService } from '../../services/product.service';
 import { ProductDettail } from '../../models/product-list.model';
 import { Router } from '@angular/router';
 import { CommonModule } from '@angular/common';

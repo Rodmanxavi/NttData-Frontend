@@ -1,0 +1,45 @@
+<div class="form-container">
+  <h2>Editar Registro</h2>
+  <hr />
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-row">
+      <div class="form-group">
+        <label for="id">ID</label>
+        <input id="id" type="text" formControlName="id" class="input" [readonly]="true" [disabled]="true" />
+      </div>
+      <div class="form-group">
+        <label for="name">Nombre</label>
+        <input id="name" type="text" formControlName="name" class="input" />
+        <span class="error-msg" *ngIf="getControl('name')?.hasError('required') && (getControl('name')?.touched || getControl('name')?.dirty)">Nombre es requerido</span>
+        <span class="error-msg" *ngIf="getControl('name')?.hasError('minlength')">Mínimo 5 caracteres</span>
+        <span class="error-msg" *ngIf="getControl('name')?.hasError('maxlength')">Máximo 100 caracteres</span>
+      </div>
+      <div class="form-group">
+        <label for="description">Descripción</label>
+        <input id="description" type="text" formControlName="description" class="input" />
+        <span class="error-msg" *ngIf="getControl('description')?.hasError('required') && (getControl('description')?.touched || getControl('description')?.dirty)">Descripción es requerida</span>
+        <span class="error-msg" *ngIf="getControl('description')?.hasError('minlength')">Mínimo 10 caracteres</span>
+        <span class="error-msg" *ngIf="getControl('description')?.hasError('maxlength')">Máximo 200 caracteres</span>
+      </div>
+      <div class="form-group">
+        <label for="logo">Logo</label>
+        <input id="logo" type="text" formControlName="logo" class="input" />
+        <span class="error-msg" *ngIf="getControl('logo')?.hasError('required') && (getControl('logo')?.touched || getControl('logo')?.dirty)">Logo es requerido</span>
+      </div>
+      <div class="form-group">
+        <label for="date_release">Fecha de liberación</label>
+        <input id="date_release" type="date" formControlName="date_release" class="input" />
+        <span class="error-msg" *ngIf="getControl('date_release')?.hasError('required') && (getControl('date_release')?.touched || getControl('date_release')?.dirty)">Fecha de liberación es requerida</span>
+        <span class="error-msg" *ngIf="getControl('date_release')?.hasError('releaseDateInvalid')">Debe ser igual o mayor a hoy</span>
+      </div>
+      <div class="form-group">
+        <label for="date_revision">Fecha Revisión</label>
+        <input id="date_revision" type="date" formControlName="date_revision" class="input" [disabled]="true" />
+      </div>
+    </div>
+    <div class="form-actions">
+      <button type="reset" class="btn btn-reset">Reiniciar</button>
+      <button type="submit" class="btn btn-submit" [disabled]="form.invalid">Enviar</button>
+    </div>
+  </form>
+</div>

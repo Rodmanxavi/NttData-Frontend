@@ -1,5 +1,5 @@
 import { Component, inject, signal, effect, computed } from '@angular/core';
-import { ProductService } from '../../services/product-list.service';
+import { ProductService } from '../../services/product.service';
 import { ProductDettail } from '../../models/product-list.model';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
@@ -75,7 +75,7 @@ export class ProductListComponent {
     });
   }
 
-  // Opcional: cerrar menú contextual al hacer click fuera
+  //cerrar menú contextual al hacer click fuera
   ngOnInit() {
     document.addEventListener('click', () => this.openMenuId = null);
   }

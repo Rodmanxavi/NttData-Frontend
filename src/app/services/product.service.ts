@@ -30,4 +30,11 @@ export class ProductService {
     const url = `${this.apiUrl}/${id}`;
     return this.http.delete<{ message: string }>(url);
   }
+
+  updateProduct(id: string, product: Partial<ProductDettail>): Observable<ProductDettail> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.put<{ message: string; data: ProductDettail }>(url, product).pipe(
+      map(response => response.data)
+    );
+  }
 }
