@@ -50,13 +50,11 @@
       </thead>
       <tbody>
         <tr *ngFor="let product of filteredProducts()">
-          <td>
-            <img [src]="product.logo" alt="Logo" class="avatar" />
-          </td>
-          <td>{{ product.name }}</td>
-          <td>{{ product.description }}</td>
-          <td>{{ product.date_release }}</td>
-          <td>{{ product.date_revision }}</td>
+          <td data-label="Logo"><img [src]="product.logo" alt="Logo" class="avatar" /></td>
+          <td data-label="Nombre">{{ product.name }}</td>
+          <td data-label="Descripción">{{ product.description }}</td>
+          <td data-label="Fecha de liberación">{{ product.date_release }}</td>
+          <td data-label="Fecha de reestructuración">{{ product.date_revision }}</td>
           <td class="actions-cell">
             <span class="menu-icon" (click)="openMenu(product.id, $event)">⋮</span>
             <div class="dropdown-menu" *ngIf="openMenuId === product.id">
@@ -72,7 +70,7 @@
     
     <div class="table-footer">
       <span>{{ products().length }} Resultados</span>
-      <select class="selector">
+      <select class="selector" [value]="pageSize()" (change)="onPageSizeChange($event)">
         <option>5</option>
         <option>10</option>
         <option>20</option>

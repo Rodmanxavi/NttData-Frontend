@@ -16,14 +16,18 @@ export class ProductListComponent {
 
   products = signal<ProductDettail[]>([]);
   searchTerm = signal(''); //signal para búsqueda
+  pageSize = signal(5);
 
   // productos filtrados
   filteredProducts = computed(() => {
     const term = this.searchTerm().toLowerCase();
-    if (!term) return this.products();
-    return this.products().filter(product =>
-      product.name.toLowerCase().includes(term)
-    );
+    let filtered = this.products();
+    if (term) {
+      filtered = filtered.filter(product =>
+        product.name.toLowerCase().includes(term)
+      );
+    }
+    return filtered.slice(0, this.pageSize());
   });
 
   openMenuId: string | null = null;
@@ -39,6 +43,11 @@ export class ProductListComponent {
     });
   }
 
+  onPageSizeChange(event: Event): void {
+    const value = +(event.target as HTMLSelectElement).value;
+    this.pageSize.set(value);
+  }
+  
   onSearch(event: Event): void {
     const value = (event.target as HTMLInputElement)?.value ?? '';
     this.searchTerm.set(value);

@@ -264,7 +264,24 @@ tr:not(:last-child) {
   text-align: left;
 }
 
+/* Fija la altura de las cabeceras */
+.table-container th {
+  height: 56px;    
+  min-height: 56px;
+  max-height: 56px;
+  vertical-align: middle;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
 
+/*las filas tengan altura mínima similar */
+.table-container td {
+  min-height: 60px;
+  height: 60px;
+  vertical-align: middle;
+  padding: 0 8px;
+  box-sizing: border-box;
+}
 
 /* Ajuste para pantallas medianas y pequeñas */
 @media (max-width: 1200px) {
@@ -351,20 +368,54 @@ tr:not(:last-child) {
     width: 100%;
     max-width: 300px;
   }
-
   .dropdown-menu {
-    left: auto;
-    right: -50px;
-    top: 36px;
-    transform: none;
-    min-width: 120px;
-    max-width: 90vw;
-    box-shadow: 0 2px 8px #0002;
-    z-index: 30;
+    min-width: 100px;
+    font-size: 1.1rem;
+    right: -55px;
+    top: 40px;
   }
   .actions-cell {
     position: relative;
     min-width: 40px;
     text-align: right;
+  }
+  .table-container th,
+  .table-container td {
+    height: 40px;
+    min-height: 40px;
+    max-height: 40px;
+    font-size: 0.95rem;
+    padding: 0 4px;
+  }
+  td[data-label] {
+    display: block;
+    padding: 0.5rem 1rem;
+    word-break: break-word;
+    white-space: pre-line;
+    position: relative;
+  }
+  td[data-label]:before {
+    content: attr(data-label) ":";
+    display: block;
+    font-weight: 600;
+    color: #888;
+    margin-bottom: 0.2rem;
+    min-width: 0;
+  }
+  td[data-label="Logo"]:before {
+    content: "";
+    display: none;
+  }
+  td {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-bottom: 1px solid #f0f0f0;
+  }
+  tr {
+    box-shadow: 0 2px 8px #0001;
+    margin-bottom: 1.2rem;
+    border-radius: 0.7rem;
+    background: #fff;
+    padding: 0.7rem 0.3rem;
   }
 }
