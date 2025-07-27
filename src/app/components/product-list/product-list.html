@@ -1,6 +1,11 @@
 <div class="product-list-container">
   <div class="txtBuscar">
-    <input type="text" placeholder="Buscar..." class="buscar-input" />
+    <input
+      type="text"
+      placeholder="Buscar..."
+      class="buscar-input"
+      [value]="searchTerm()"
+      (input)="onSearch($event)"/>
     <button type="button" [routerLink]="'/nuevo-producto'" class="nuevo-btn">Nuevo Producto</button>
   </div>
 
@@ -44,7 +49,7 @@
         </tr>
       </thead>
       <tbody>
-        <tr *ngFor="let product of products()">
+        <tr *ngFor="let product of filteredProducts()">
           <td>
             <img [src]="product.logo" alt="Logo" class="avatar" />
           </td>
