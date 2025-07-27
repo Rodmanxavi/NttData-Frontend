@@ -21,6 +21,7 @@
 }
 
 .nuevo-btn {
+  cursor: pointer;
   background: #ffe066;
   color: #333;
   border: none;
@@ -82,8 +83,6 @@ tr:not(:last-child) {
   color: #bdbdbd;
 }
 
-/* ...código existente... */
-
 .line-div {
   width: 100%;
   height: 5px;
@@ -108,9 +107,40 @@ tr:not(:last-child) {
   font-size: 1rem;
 }
 
+.info-icon {
+  position: relative;
+  cursor: pointer;
+  display: inline-block;
+  vertical-align: middle;
+}
+
+.info-icon .tooltip {
+  visibility: hidden;
+  opacity: 0;
+  width: max-content;
+  background: #333;
+  color: #fff;
+  text-align: center;
+  border-radius: 0.4rem;
+  padding: 0.3rem 0.7rem;
+  position: absolute;
+  z-index: 10;
+  bottom: 125%; /* arriba del icono */
+  left: 50%;
+  transform: translateX(-50%);
+  transition: opacity 0.2s;
+  font-size: 0.85rem;
+  pointer-events: none;
+}
+
+.info-icon:hover .tooltip,
+.info-icon:focus .tooltip {
+  visibility: visible;
+  opacity: 1;
+}
 
 
-/* Ajuste general para pantallas medianas y pequeñas */
+/* Ajuste para pantallas medianas y pequeñas */
 @media (max-width: 1200px) {
   .product-list-container {
     width: 95%;

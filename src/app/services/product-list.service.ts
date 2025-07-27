@@ -14,4 +14,10 @@ export class ProductService {
       map(response => response.data)
     );
   }
+
+  addProduct(product: ProductDettail): Observable<ProductDettail> {
+    return this.http.post<{ data: ProductDettail }>(this.apiUrl, product).pipe(
+      map(response => response.data)
+    );
+  }
 }
