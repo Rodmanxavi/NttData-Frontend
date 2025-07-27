@@ -1,1 +1,55 @@
-<p>product-list works!</p>
+<div class="product-list-container">
+  <div class="txtBuscar">
+    <input type="text" placeholder="Buscar..." class="buscar-input" />
+    <button type="button" [routerLink]="'/nuevo-producto'" class="nuevo-btn">Nuevo Producto</button>
+  </div>
+
+  <div class="table-container">
+    <table>
+      <thead>
+        <tr>
+          <th>Logo</th>
+          <th>Nombre del producto</th>
+          <th>
+            Descripción
+            <span title="Descripción del producto">ℹ️</span>
+          </th>
+          <th>
+            Fecha de liberación
+            <span title="Fecha en que se liberó el producto">ℹ️</span>
+          </th>
+          <th>
+            Fecha de reestructuración
+            <span title="Fecha en que se reestructuró el producto">ℹ️</span>
+          </th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let product of products()">
+          <td>
+            <img [src]="product.logo" alt="Logo" class="avatar" />
+          </td>
+          <td>{{ product.name }}</td>
+          <td>{{ product.description }}</td>
+          <td>{{ product.date_release }}</td>
+          <td>{{ product.date_revision }}</td>
+          <td>
+            <span class="menu-icon">⋮</span>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    
+    <div class="line-div"></div>
+    
+    <div class="table-footer">
+      <span>{{ products().length }} Resultados</span>
+      <select class="selector">
+        <option>5</option>
+        <option>10</option>
+        <option>20</option>
+      </select>
+    </div>
+  </div>
+</div>
