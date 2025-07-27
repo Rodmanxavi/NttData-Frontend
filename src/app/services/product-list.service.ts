@@ -20,4 +20,14 @@ export class ProductService {
       map(response => response.data)
     );
   }
+
+  verifyProductId(id: string): Observable<boolean> {
+    const url = `${this.apiUrl}/verification/${id}`;
+    return this.http.get<boolean>(url);
+  }
+
+  deleteProduct(id: string): Observable<{ message: string }> {
+    const url = `${this.apiUrl}/${id}`;
+    return this.http.delete<{ message: string }>(url);
+  }
 }

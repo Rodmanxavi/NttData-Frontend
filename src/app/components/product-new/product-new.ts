@@ -21,11 +21,8 @@ function releaseDateValidator(): ValidatorFn {
 function idUniqueValidator(productService: ProductService): AsyncValidatorFn {
   return (control: AbstractControl) => {
     if (!control.value) return of(null);
-    return productService.getProducts().pipe(
-      map(products => {
-        const exists = products.some(p => p.id === control.value);
-        return exists ? { idNotUnique: true } : null;
-      })
+    return productService.verifyProductId(control.value).pipe(
+      map(exists => exists ? { idNotUnique: true } : null)
     );
   };
 }

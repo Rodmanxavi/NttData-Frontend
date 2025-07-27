@@ -26,6 +26,10 @@ export class ProductListComponent {
     );
   });
 
+  openMenuId: string | null = null;
+  showDeleteModal = false;
+  productToDelete: ProductDettail | null = null;
+
   constructor() {
     effect(() => {
       this.productService.getProducts().subscribe({
@@ -38,5 +42,41 @@ export class ProductListComponent {
   onSearch(event: Event): void {
     const value = (event.target as HTMLInputElement)?.value ?? '';
     this.searchTerm.set(value);
+  }
+
+  openMenu(id: string, event: Event) {
+    event.stopPropagation();
+    this.openMenuId = this.openMenuId === id ? null : id;
+  }
+
+  openDeleteModal(product: ProductDettail) {
+    this.productToDelete = product;
+    this.showDeleteModal = true;
+    this.openMenuId = null;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.productToDelete = null;
+  }
+
+  confirmDelete() {
+    if (!this.productToDelete) return;
+    this.productService.deleteProduct(this.productToDelete.id).subscribe({
+      next: () => {
+        // Actualiza la lista quitando el producto eliminado
+        this.products.set(this.products().filter(p => p.id !== this.productToDelete!.id));
+        this.closeDeleteModal();
+      },
+      error: () => {
+        alert('Error al eliminar el producto');
+        this.closeDeleteModal();
+      }
+    });
+  }
+
+  // Opcional: cerrar menú contextual al hacer click fuera
+  ngOnInit() {
+    document.addEventListener('click', () => this.openMenuId = null);
   }
 }

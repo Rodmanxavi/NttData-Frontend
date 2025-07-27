@@ -6,7 +6,7 @@
       class="buscar-input"
       [value]="searchTerm()"
       (input)="onSearch($event)"/>
-    <button type="button" [routerLink]="'/nuevo-producto'" class="nuevo-btn">Nuevo Producto</button>
+    <button type="button" [routerLink]="'/nuevo-producto'" class="nuevo-btn">Agregar</button>
   </div>
 
   <div class="table-container">
@@ -58,7 +58,11 @@
           <td>{{ product.date_release }}</td>
           <td>{{ product.date_revision }}</td>
           <td>
-            <span class="menu-icon">⋮</span>
+            <span class="menu-icon" (click)="openMenu(product.id, $event)">⋮</span>
+            <div class="dropdown-menu" *ngIf="openMenuId === product.id">
+              <button (click)="openDeleteModal(product)">Eliminar</button>
+              <button disabled>Editar</button>
+            </div>
           </td>
         </tr>
       </tbody>
@@ -73,6 +77,20 @@
         <option>10</option>
         <option>20</option>
       </select>
+    </div>
+  </div>
+</div>
+
+<!-- Modal de Eliminación -->
+<div class="modal-backdrop" *ngIf="showDeleteModal">
+  <div class="modal">
+    <p class="modal-title">
+      ¿Estás seguro de eliminar el producto <b>{{ productToDelete?.name }}</b>?
+    </p>
+    <div class="modal-divider"></div>
+    <div class="modal-actions">
+      <button class="btn-cancel" (click)="closeDeleteModal()">Cancelar</button>
+      <button class="btn-confirm" (click)="confirmDelete()">Confirmar</button>
     </div>
   </div>
 </div>
